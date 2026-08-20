@@ -24,3 +24,8 @@ Một công cụ chuyên nghiệp để dọn dẹp dữ liệu rác, bộ nhớ
 
 ## Khôi Phục (Restore)
 Nếu bạn có đánh dấu "Sao lưu vào máy tính trước khi xóa", toàn bộ dữ liệu đã xóa sẽ được lưu ở máy tính. Bạn có thể khôi phục lại bất kỳ lúc nào ở thẻ **Khôi phục**.
+
+## ⚠️ Tuyên Bố Miễn Trừ Trách Nhiệm (Disclaimer)
+- Phần mềm này can thiệp trực tiếp vào hệ thống tệp tin (File System) của iOS thông qua quyền Root.
+- Việc xóa các file hệ thống và bộ nhớ đệm luôn tiềm ẩn rủi ro nhất định. Mặc dù các đường dẫn được cấu hình mặc định là an toàn (chỉ tác động đến vùng User Data ở `/var`), tác giả **không chịu bất kỳ trách nhiệm nào** đối với các trường hợp: mất mát dữ liệu cá nhân, lỗi ứng dụng, treo táo (bootloop), hoặc bất kỳ hỏng hóc nào về phần mềm/phần cứng xảy ra trong và sau quá trình sử dụng công cụ này.
+- **BẠN HOÀN TOÀN TỰ CHỊU TRÁCH NHIỆM KHI SỬ DỤNG CÔNG CỤ NÀY.** Hãy luôn sao lưu dữ liệu quan trọng trước khi thực hiện.
