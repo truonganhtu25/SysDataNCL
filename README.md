@@ -1,6 +1,6 @@
 # iPhone System Data Cleaner
 
-Một công cụ chuyên nghiệp để dọn dẹp dữ liệu rác, bộ nhớ đệm và các tệp tin tạm thời trên iPhone (dành cho máy đã Jailbreak). Giúp giải phóng không gian lưu trữ "System Data" (Dữ liệu Hệ thống) một cách an toàn và dễ dàng qua kết nối SSH.
+Một công cụ để dọn dẹp dữ liệu rác, bộ nhớ đệm và các tệp tin tạm thời trên iPhone (dành cho máy đã Jailbreak). Giúp giải phóng không gian lưu trữ "System Data" (Dữ liệu Hệ thống) một cách an toàn và dễ dàng qua kết nối SSH.
 
 ## Tính Năng Chính
 - **Quét Dọn Nhanh Chóng**: Quét các thư mục rác (Caches, Logs, Temp Files...) chỉ với một cú nhấp chuột.
@@ -32,3 +32,4 @@ Nếu bạn có đánh dấu "Sao lưu vào máy tính trước khi xóa", toàn
   - Nếu bạn tick xóa **Apple AI & ML Data**, thiết bị sẽ bị "mất trí nhớ" về thói quen sử dụng của bạn. Hậu quả: Siri ngáo hơn, bàn phím gõ chậm hơn, và đặc biệt máy sẽ **rất tốn pin trong 3-4 ngày đầu** do chip AI phải chạy ngầm để "học" lại từ đầu.
 - **TUYÊN BỐ MIỄN TRỪ:** Tác giả **không chịu bất kỳ trách nhiệm nào** đối với các trường hợp: mất mát dữ liệu cá nhân, lỗi ứng dụng, hoặc bất kỳ hỏng hóc nào về phần mềm/phần cứng xảy ra trong và sau quá trình sử dụng công cụ này.
 - **BẠN HOÀN TOÀN TỰ CHỊU TRÁCH NHIỆM KHI SỬ DỤNG CÔNG CỤ NÀY.** Hãy luôn sao lưu dữ liệu quan trọng trước khi thực hiện.
+
