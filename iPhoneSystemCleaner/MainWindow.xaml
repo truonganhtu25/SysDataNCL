@@ -25,8 +25,9 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="20,8"/>
-            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -37,7 +38,7 @@
                                 Padding="{TemplateBinding Padding}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="icon" Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                           FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                           FontSize="18" Margin="0,0,12,0" VerticalAlignment="Center"/>
                                 <ContentPresenter VerticalAlignment="Center"/>
                             </StackPanel>
                         </Border>
@@ -68,8 +69,7 @@
         <Grid Background="{StaticResource BackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>     <!-- TitleBar -->
-                <RowDefinition Height="60"/>     <!-- Tab nav -->
-                <RowDefinition Height="*"/>      <!-- Content -->
+                <RowDefinition Height="*"/>      <!-- Body (Sidebar + Content) -->
                 <RowDefinition Height="28"/>     <!-- Status bar -->
             </Grid.RowDefinitions>
 
@@ -128,84 +128,93 @@
                 </Grid>
             </Border>
 
-            <!-- ═══ TAB NAVIGATION ═══ -->
-            <Border Grid.Row="1"
-                    Background="{StaticResource SurfaceBrush}"
-                    BorderBrush="{StaticResource BorderBrush}"
-                    BorderThickness="0,0,0,1">
-                <Grid Margin="16,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <!-- Device info -->
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+            <!-- ═══ BODY (SIDEBAR + CONTENT) ═══ -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="24,0,0,0">
-                        <Button x:Name="BtnTabConnect"
-                                Style="{StaticResource TabBtnActive}"
-                                Tag="🔌" Content="Kết nối"
-                                Click="BtnTabConnect_Click"/>
+                <!-- SIDEBAR -->
+                <Border Grid.Column="0"
+                        Background="{StaticResource SurfaceBrush}"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="0,0,1,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                        <Button x:Name="BtnTabScan"
-                                Style="{StaticResource TabBtn}"
-                                Tag="🔍" Content="Quét hệ thống"
-                                IsEnabled="False"
-                                Click="BtnTabScan_Click"/>
+                        <!-- Tab nav -->
+                        <StackPanel Grid.Row="0" Margin="16,24,16,0">
+                            <Button x:Name="BtnTabConnect"
+                                    Style="{StaticResource TabBtnActive}"
+                                    Tag="🔌" Content="Kết nối"
+                                    Click="BtnTabConnect_Click"/>
 
-                        <Button x:Name="BtnTabResults"
-                                Style="{StaticResource TabBtn}"
-                                Tag="📁" Content="Kết quả &amp; Xóa"
-                                IsEnabled="False"
-                                Click="BtnTabResults_Click"/>
-                        
-                        <Button x:Name="BtnTabRestore"
-                                Style="{StaticResource TabBtn}"
-                                Tag="♻️" Content="Khôi phục"
-                                Click="BtnTabRestore_Click"/>
-                    </StackPanel>
+                            <Button x:Name="BtnTabScan"
+                                    Style="{StaticResource TabBtn}"
+                                    Tag="🔍" Content="Quét hệ thống"
+                                    IsEnabled="False"
+                                    Click="BtnTabScan_Click"/>
 
-                    <!-- Device info chip -->
-                    <Border x:Name="DeviceInfoPanel" Grid.Column="1"
-                            Background="#252526"
-                            BorderBrush="{StaticResource BorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="20"
-                            Padding="12,6"
-                            Visibility="Collapsed"
-                            VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse x:Name="DeviceStatusDot" Width="8" Height="8"
-                                     Fill="{StaticResource SuccessBrush}"
-                                     Margin="0,0,8,0" VerticalAlignment="Center">
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Color="#22C55E" BlurRadius="6" ShadowDepth="0"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="TbDeviceName"
-                                       Text="iPhone"
-                                       Foreground="{StaticResource TextPrimaryBrush}"
-                                       FontSize="12" FontWeight="SemiBold"
-                                       VerticalAlignment="Center"/>
-                            <TextBlock x:Name="TbDeviceIos"
-                                       Text=" · iOS --"
-                                       Foreground="{StaticResource TextSecondaryBrush}"
-                                       FontSize="12"
-                                       VerticalAlignment="Center"/>
+                            <Button x:Name="BtnTabResults"
+                                    Style="{StaticResource TabBtn}"
+                                    Tag="📁" Content="Kết quả &amp; Xóa"
+                                    IsEnabled="False"
+                                    Click="BtnTabResults_Click"/>
+                            
+                            <Button x:Name="BtnTabRestore"
+                                    Style="{StaticResource TabBtn}"
+                                    Tag="♻️" Content="Khôi phục"
+                                    Click="BtnTabRestore_Click"/>
                         </StackPanel>
-                    </Border>
-                </Grid>
-            </Border>
 
-            <!-- ═══ CONTENT AREA ═══ -->
-            <Grid Grid.Row="2">
-                <views:ConnectView x:Name="ViewConnect"/>
-                <views:ScanView x:Name="ViewScan" Visibility="Collapsed"/>
-                <views:ResultsView x:Name="ViewResults" Visibility="Collapsed"/>
-                <views:RestoreView x:Name="ViewRestore" Visibility="Collapsed"/>
+                        <!-- Device info chip -->
+                        <Border x:Name="DeviceInfoPanel" Grid.Row="1"
+                                Background="#252526"
+                                BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="12"
+                                Padding="12,12"
+                                Margin="16,0,16,24"
+                                Visibility="Collapsed"
+                                VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse x:Name="DeviceStatusDot" Width="10" Height="10"
+                                         Fill="{StaticResource SuccessBrush}"
+                                         Margin="0,0,12,0" VerticalAlignment="Center">
+                                    <Ellipse.Effect>
+                                        <DropShadowEffect Color="#22C55E" BlurRadius="6" ShadowDepth="0"/>
+                                    </Ellipse.Effect>
+                                </Ellipse>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="TbDeviceName"
+                                               Text="iPhone"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="13" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="TbDeviceIos"
+                                               Text="iOS --"
+                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                               FontSize="11" Margin="0,2,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- CONTENT AREA -->
+                <Grid Grid.Column="1">
+                    <views:ConnectView x:Name="ViewConnect"/>
+                    <views:ScanView x:Name="ViewScan" Visibility="Collapsed"/>
+                    <views:ResultsView x:Name="ViewResults" Visibility="Collapsed"/>
+                    <views:RestoreView x:Name="ViewRestore" Visibility="Collapsed"/>
+                </Grid>
             </Grid>
 
             <!-- ═══ STATUS BAR ═══ -->
-            <Border Grid.Row="3"
+            <Border Grid.Row="2"
                     Background="{StaticResource SurfaceBrush}"
                     BorderBrush="{StaticResource BorderBrush}"
                     BorderThickness="0,1,0,0"
@@ -230,7 +239,7 @@
             </Border>
 
             <!-- Resize grip -->
-            <ResizeGrip Grid.Row="3"
+            <ResizeGrip Grid.Row="2"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         Visibility="Visible"
