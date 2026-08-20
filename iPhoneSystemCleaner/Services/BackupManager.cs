@@ -8,7 +8,7 @@ namespace iPhoneSystemCleaner.Services
 {
     public class BackupManager
     {
-        public static string BackupDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backups");
+        public static string BackupDirectory => Path.Combine(AppContext.BaseDirectory, "Backups");
 
         public static void EnsureBackupDirectory()
         {

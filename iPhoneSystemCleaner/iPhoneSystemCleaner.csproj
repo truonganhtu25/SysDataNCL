@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyName>iPhoneSystemCleaner</AssemblyName>
+    <AssemblyName>SysDataNCL</AssemblyName>
     <ApplicationIcon>Resources\app.ico</ApplicationIcon>
     <!-- Single-file portable publish settings -->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
