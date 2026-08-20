@@ -14,19 +14,31 @@ namespace iPhoneSystemCleaner
 
         public MainWindow()
         {
-            Instance = this;
-            InitializeComponent();
+            try
+            {
+                Instance = this;
+                InitializeComponent();
 
-            // Wire up child views
-            ViewConnect.OnConnected += OnDeviceConnected;
-            ViewScan.OnScanComplete += OnScanComplete;
-            ViewResults.OnDeleteComplete += OnDeleteComplete;
+                // Wire up child views
+                ViewConnect.OnConnected += OnDeviceConnected;
+                ViewScan.OnScanComplete += OnScanComplete;
+                ViewResults.OnDeleteComplete += OnDeleteComplete;
 
-            // Pass SSH service to views
-            ViewConnect.Initialize(Ssh);
-            ViewScan.Initialize(Ssh);
-            ViewResults.Initialize(Ssh);
-            ViewRestore.Initialize(Ssh);
+                // Pass SSH service to views
+                ViewConnect.Initialize(Ssh);
+                ViewScan.Initialize(Ssh);
+                ViewResults.Initialize(Ssh);
+                ViewRestore.Initialize(Ssh);
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException;
+                string msg = inner != null ? inner.Message + "\n" + inner.StackTrace : ex.Message + "\n" + ex.StackTrace;
+                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                System.IO.File.WriteAllText(System.IO.Path.Combine(desktop, "crash_mainwindow.txt"), msg);
+                MessageBox.Show($"MainWindow Init Error: {msg}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(1);
+            }
         }
 
         private void ShowView(UIElement toShow, Button activeTab)
