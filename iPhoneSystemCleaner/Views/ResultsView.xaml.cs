@@ -223,7 +223,10 @@ namespace iPhoneSystemCleaner.Views
 
         private void ChckEnableBackup_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            UpdateSummary();
+            if (BtnDeleteText != null)
+            {
+                UpdateSummary();
+            }
         }
 
         private void BtnSelectAll_Click(object sender, RoutedEventArgs e)
