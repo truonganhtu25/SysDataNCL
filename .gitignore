@@ -1,0 +1,29 @@
+# .NET Core
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+dist/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]ackups/
+
+# Executables
+*.exe
+*.dll
+*.pdb
+*.mdb
+
+# OS generated files
+.DS_Store
+Thumbs.db

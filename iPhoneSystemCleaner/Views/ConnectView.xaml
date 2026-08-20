@@ -1,0 +1,267 @@
+<UserControl x:Class="iPhoneSystemCleaner.Views.ConnectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="440"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Center column content -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Margin="0,32,0,32">
+
+                <!-- Hero header -->
+                <StackPanel HorizontalAlignment="Center" Margin="0,0,0,36">
+                    <!-- Big icon -->
+                    <Border Width="80" Height="80"
+                            CornerRadius="24"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,16">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#7C3AED" Offset="0"/>
+                                <GradientStop Color="#00D4FF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Effect>
+                            <DropShadowEffect Color="#7C3AED" BlurRadius="30" ShadowDepth="0" Opacity="0.6"/>
+                        </Border.Effect>
+                        <TextBlock Text="🍎" FontSize="38"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+
+                    <TextBlock Text="Kết nối đến iPhone"
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimaryBrush}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Nhập thông tin SSH để bắt đầu quét dữ liệu hệ thống"
+                               FontSize="13"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               HorizontalAlignment="Center"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+
+                <!-- Connection card -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+
+                        <!-- IP Address -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="ĐỊA CHỈ IP IPHONE (IPv4)"
+                                       Style="{StaticResource FieldLabel}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="TbIp"
+                                         Grid.Column="0"
+                                         Style="{StaticResource DarkTextBox}"
+                                         Text="192.168.1."
+                                         Height="44"
+                                         ToolTip="Ví dụ: 192.168.1.100"/>
+                                <!-- Paste button -->
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource GhostButton}"
+                                        Content="📋 Paste"
+                                        Height="44" Margin="8,0,0,0"
+                                        Click="BtnPasteIp_Click"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Port -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="CỔNG SSH"
+                                       Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TbPort"
+                                     Style="{StaticResource DarkTextBox}"
+                                     Text="22"
+                                     Height="44"/>
+                        </StackPanel>
+
+                        <!-- Username & Password side by side -->
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="TÊN ĐĂNG NHẬP"
+                                           Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="TbUsername"
+                                         Style="{StaticResource DarkTextBox}"
+                                         Text="mobile"
+                                         Height="44"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="MẬT KHẨU ROOT"
+                                           Style="{StaticResource FieldLabel}"/>
+                                <PasswordBox x:Name="PbPassword"
+                                             Style="{StaticResource DarkPasswordBox}"
+                                             Height="44"
+                                             PasswordChar="●"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Remember tip -->
+                        <TextBlock Text="💡 Mật khẩu mặc định thường là: alpine"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   FontSize="12" Margin="0,0,0,24"
+                                   FontStyle="Italic"/>
+
+                        <!-- Connect button -->
+                        <Button x:Name="BtnConnect"
+                                Style="{StaticResource AccentButton}"
+                                Height="48"
+                                HorizontalAlignment="Stretch"
+                                Click="BtnConnect_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="BtnConnectIcon" Text="🔌 " FontSize="16"/>
+                                <TextBlock x:Name="BtnConnectText" Text="Kết nối SSH" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Status indicator -->
+                        <Border x:Name="StatusPanel"
+                                Margin="0,16,0,0"
+                                Padding="14,10"
+                                CornerRadius="8"
+                                Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="TbStatusIcon" Text="⚡" FontSize="16" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="TbStatusMsg"
+                                           Text=""
+                                           FontSize="13"
+                                           VerticalAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           MaxWidth="320"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Loading indicator -->
+                        <StackPanel x:Name="LoadingPanel"
+                                    Margin="0,16,0,0"
+                                    Visibility="Collapsed"
+                                    HorizontalAlignment="Center">
+                            <ProgressBar IsIndeterminate="True"
+                                         Style="{StaticResource GlowProgressBar}"
+                                         Width="300" Height="4"/>
+                            <TextBlock Text="Đang kết nối..."
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Device info card (shown after connect) -->
+                <Border x:Name="DeviceInfoCard"
+                        Style="{StaticResource CardStyle}"
+                        Margin="0,16,0,0"
+                        Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock Text="📱 Thông tin thiết bị"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   Margin="0,0,0,14"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,0,12">
+                                <TextBlock Text="Tên thiết bị" Style="{StaticResource FieldLabel}"/>
+                                <TextBlock x:Name="TbDvHostname"
+                                           Text="—"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,0,0,12">
+                                <TextBlock Text="iOS Version" Style="{StaticResource FieldLabel}"/>
+                                <TextBlock x:Name="TbDvIos"
+                                           Text="—"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,12">
+                                <TextBlock Text="Loại Jailbreak" Style="{StaticResource FieldLabel}"/>
+                                <TextBlock x:Name="TbDvJbType"
+                                           Text="—"
+                                           Foreground="{StaticResource AccentBlueBrush}"
+                                           FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,0,12">
+                                <TextBlock Text="Dung lượng còn trống" Style="{StaticResource FieldLabel}"/>
+                                <TextBlock x:Name="TbDvFree"
+                                           Text="—"
+                                           Foreground="{StaticResource SuccessBrush}"
+                                           FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+
+                            <!-- Disk bar -->
+                            <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                                <Grid Margin="0,0,0,4">
+                                    <TextBlock Text="Dung lượng ổ đĩa"
+                                               Style="{StaticResource FieldLabel}"
+                                               HorizontalAlignment="Left"/>
+                                    <TextBlock x:Name="TbDvDiskDetail"
+                                               Text="—"
+                                               Style="{StaticResource FieldLabel}"
+                                               HorizontalAlignment="Right"/>
+                                </Grid>
+                                <ProgressBar x:Name="PbDisk"
+                                             Style="{StaticResource GlowProgressBar}"
+                                             Minimum="0" Maximum="100" Value="0"
+                                             Height="10"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Button x:Name="BtnGoScan"
+                                Style="{StaticResource AccentButton}"
+                                Margin="0,16,0,0"
+                                Height="44"
+                                HorizontalAlignment="Stretch"
+                                Content="🔍  Tiếp tục → Quét hệ thống"
+                                Click="BtnGoScan_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Help tip -->
+                <Border Margin="0,16,0,0"
+                        Background="#1E1E1E"
+                        BorderBrush="#3E3E42"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="16,12">
+                    <StackPanel>
+                        <TextBlock Text="💡 Gợi ý kết nối Dopamine / palera1n"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Foreground="{StaticResource TextSecondaryBrush}"
+                                   FontSize="12" LineHeight="20">
+                            <Run Text="① Cài "/> <Run Foreground="{StaticResource TextPrimaryBrush}" Text="OpenSSH"/> <Run Text=" từ Sileo (nguồn apt.procurs.us)"/><LineBreak/>
+                            <Run Text="② Tên đăng nhập mặc định là "/><Run Foreground="{StaticResource TextPrimaryBrush}" FontWeight="Bold" Text="mobile"/><LineBreak/>
+                            <Run Text="③ Nếu bị lỗi Timeout: Thử đổi cổng SSH sang "/> <Run Foreground="{StaticResource TextPrimaryBrush}" FontWeight="Bold" Text="2222"/> <Run Text=" hoặc kiểm tra lại địa chỉ IP, tắt Tường lửa Windows (Firewall)."/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
