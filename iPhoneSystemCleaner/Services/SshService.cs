@@ -111,14 +111,12 @@ namespace iPhoneSystemCleaner.Services
             return info;
         }
 
-        /// <summary>Tính dung lượng của một đường dẫn trên iPhone</summary>
         public async Task<long> GetDirectorySizeAsync(string path)
         {
-            // du -sk returns kilobytes
-            var result = await RunCommandAsync(
-                $"du -sk \"{path}\" 2>/dev/null | awk '{{print $1}}'",
-                timeoutSeconds: 120);
-            return long.TryParse(result.Trim(), out var kb) ? kb * 1024 : 0;
+            var result = await RunCommandAsync($"du -sk \"{path}\" 2>/dev/null", timeoutSeconds: 120);
+            if (string.IsNullOrWhiteSpace(result)) return 0;
+            var parts = result.Trim().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            return (parts.Length > 0 && long.TryParse(parts[0], out var kb)) ? kb * 1024 : 0;
         }
 
         /// <summary>Liệt kê các thư mục con cấp 1 với kích thước</summary>
