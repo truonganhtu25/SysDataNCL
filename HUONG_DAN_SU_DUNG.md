@@ -63,6 +63,7 @@
    passwd mobile
    ```
 
+Bác nào dùng Dopamine thì cái mật khẩu lúc mới jb nó bắt thiết lập là mật khẩu root đấy, không cần cài NewTerm nữa
 ---
 
 ## 💻 PHẦN 2: Sử dụng tool trên Windows
