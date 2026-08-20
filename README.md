@@ -25,7 +25,10 @@ Một công cụ chuyên nghiệp để dọn dẹp dữ liệu rác, bộ nhớ
 ## Khôi Phục (Restore)
 Nếu bạn có đánh dấu "Sao lưu vào máy tính trước khi xóa", toàn bộ dữ liệu đã xóa sẽ được lưu ở máy tính. Bạn có thể khôi phục lại bất kỳ lúc nào ở thẻ **Khôi phục**.
 
-## ⚠️ Tuyên Bố Miễn Trừ Trách Nhiệm (Disclaimer)
-- Phần mềm này can thiệp trực tiếp vào hệ thống tệp tin (File System) của iOS thông qua quyền Root.
-- Việc xóa các file hệ thống và bộ nhớ đệm luôn tiềm ẩn rủi ro nhất định. Mặc dù các đường dẫn được cấu hình mặc định là an toàn (chỉ tác động đến vùng User Data ở `/var`), tác giả **không chịu bất kỳ trách nhiệm nào** đối với các trường hợp: mất mát dữ liệu cá nhân, lỗi ứng dụng, treo táo (bootloop), hoặc bất kỳ hỏng hóc nào về phần mềm/phần cứng xảy ra trong và sau quá trình sử dụng công cụ này.
+## ⚠️ Tuyên Bố Miễn Trừ Trách Nhiệm & Rủi Ro Thực Tế
+- **KHÔNG THỂ hỏng phần cứng hay Treo táo (Bootloop):** Tool chỉ dọn dẹp phân vùng dữ liệu người dùng (`/var/mobile/`) và các thư mục rác tạm thời. Tuyệt đối không can thiệp vào các file cốt lõi của iOS (`/System`, `/sbin`), nên gần như 0% nguy cơ khiến máy không thể khởi động.
+- **RỦI RO THỰC SỰ NẰM Ở CÁC MỤC MÀU ĐỎ (🔴):**
+  - Nếu bạn tick xóa **App Leftover Data**, bạn có nguy cơ cực cao bị **xóa nhầm dữ liệu của các ứng dụng bên thứ 3 đang dùng**. Hậu quả: mất file save game, tự động văng tài khoản đăng nhập (Facebook, Zalo...), mất dữ liệu tải về offline, hoặc app bị crash phải cài lại.
+  - Nếu bạn tick xóa **Apple AI & ML Data**, thiết bị sẽ bị "mất trí nhớ" về thói quen sử dụng của bạn. Hậu quả: Siri ngáo hơn, bàn phím gõ chậm hơn, và đặc biệt máy sẽ **rất tốn pin trong 3-4 ngày đầu** do chip AI phải chạy ngầm để "học" lại từ đầu.
+- **TUYÊN BỐ MIỄN TRỪ:** Tác giả **không chịu bất kỳ trách nhiệm nào** đối với các trường hợp: mất mát dữ liệu cá nhân, lỗi ứng dụng, hoặc bất kỳ hỏng hóc nào về phần mềm/phần cứng xảy ra trong và sau quá trình sử dụng công cụ này.
 - **BẠN HOÀN TOÀN TỰ CHỊU TRÁCH NHIỆM KHI SỬ DỤNG CÔNG CỤ NÀY.** Hãy luôn sao lưu dữ liệu quan trọng trước khi thực hiện.
