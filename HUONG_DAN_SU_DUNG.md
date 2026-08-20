@@ -111,7 +111,7 @@ Nhấn **🔌 Kết nối SSH**
 
 Tại tab **"🗂️ Kết quả & Xóa"**:
 
-1. Xem danh sách 12 nhóm file với **kích thước** và **mức độ an toàn**:
+1. Xem danh sách 14 nhóm file với **kích thước** và **mức độ an toàn**:
    - 🟢 **An toàn** — xóa không ảnh hưởng hệ thống
    - 🟡 **Cẩn thận** — hệ thống sẽ rebuild lại, có thể chậm hơn một lúc
    - 🔴 **Rủi ro** — kiểm tra kỹ trước khi xóa
@@ -128,7 +128,7 @@ Tại tab **"🗂️ Kết quả & Xóa"**:
 
 ---
 
-## 📋 12 Nhóm file được quét
+## 📋 14 Nhóm file được quét
 
 | # | Nhóm | Mô tả | An toàn |
 |---|---|---|---|
@@ -144,6 +144,8 @@ Tại tab **"🗂️ Kết quả & Xóa"**:
 | 10 | 📱 Sileo/Cydia Cache | Cache package manager | ✅ |
 | 11 | 🗂️ App Cache | Cache từng ứng dụng (chọn lọc) | ⚠️ |
 | 12 | 🏚️ App Leftover Data | Dữ liệu app đã gỡ còn sót | 🔴 |
+| 13 | 🧠 Apple AI & ML Data | Dữ liệu huấn luyện AI của Apple | 🔴 |
+| 14 | 🖼️ Wallpaper & Posters Cache | Cache hình nền/Lockscreen | ⚠️ |
 
 ---
 
