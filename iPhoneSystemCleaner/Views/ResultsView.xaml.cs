@@ -15,6 +15,7 @@ namespace iPhoneSystemCleaner.Views
         private SshService? _ssh;
         private List<ScanCategory> _categories = new();
         private readonly List<CheckBox> _checkBoxes = new();
+        private int _lastClickedIndex = -1;
 
         public event Action<long>? OnDeleteComplete;
 
@@ -31,8 +32,6 @@ namespace iPhoneSystemCleaner.Views
         public void LoadResults(List<ScanCategory> categories)
         {
             _categories = categories;
-            _checkBoxes.Clear();
-            CategoriesPanel.Children.Clear();
 
             long totalSize = categories.Sum(c => c.SizeBytes);
             int safeCount = categories.Count(c => c.Safety == SafetyLevel.Safe);
@@ -42,13 +41,39 @@ namespace iPhoneSystemCleaner.Views
             TbTotalFound.Text = FormatSize(totalSize);
             TbSafetyCount.Text = $"{safeCount} / {cautionCount}";
 
-            foreach (var cat in categories.OrderByDescending(c => c.SizeBytes))
+            RenderCategories();
+        }
+
+        private void RenderCategories()
+        {
+            _checkBoxes.Clear();
+            CategoriesPanel.Children.Clear();
+            _lastClickedIndex = -1;
+
+            IEnumerable<ScanCategory> sorted;
+            int sortIndex = CmbSort?.SelectedIndex ?? 0;
+            if (sortIndex == 1)
+                sorted = _categories.OrderBy(c => c.Safety).ThenByDescending(c => c.SizeBytes);
+            else if (sortIndex == 2)
+                sorted = _categories.OrderBy(c => c.Name);
+            else
+                sorted = _categories.OrderByDescending(c => c.SizeBytes);
+
+            foreach (var cat in sorted)
             {
                 var row = BuildCategoryRow(cat);
                 CategoriesPanel.Children.Add(row);
             }
 
             UpdateSummary();
+        }
+
+        private void CmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_categories.Count > 0)
+            {
+                RenderCategories();
+            }
         }
 
         private Border BuildCategoryRow(ScanCategory cat)
@@ -73,12 +98,38 @@ namespace iPhoneSystemCleaner.Views
             var chk = new CheckBox
             {
                 Style = FindResource("DarkCheckBox") as Style,
-                IsChecked = cat.SizeBytes > 0,
+                IsChecked = cat.IsSelected,
                 IsEnabled = cat.SizeBytes > 0,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 14, 0),
                 Tag = cat
             };
+            
+            int index = _checkBoxes.Count;
+            chk.Click += (s, e) =>
+            {
+                if (System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) && _lastClickedIndex != -1)
+                {
+                    int min = Math.Min(_lastClickedIndex, index);
+                    int max = Math.Max(_lastClickedIndex, index);
+                    bool targetState = chk.IsChecked == true;
+                    
+                    for (int i = min; i <= max; i++)
+                    {
+                        if (_checkBoxes[i].IsEnabled)
+                        {
+                            _checkBoxes[i].IsChecked = targetState;
+                            ((ScanCategory)_checkBoxes[i].Tag!).IsSelected = targetState;
+                        }
+                    }
+                }
+                else
+                {
+                    _lastClickedIndex = index;
+                    cat.IsSelected = chk.IsChecked == true;
+                }
+            };
+            
             chk.Checked += (s, e) => UpdateSummary();
             chk.Unchecked += (s, e) => UpdateSummary();
             _checkBoxes.Add(chk);
@@ -232,13 +283,19 @@ namespace iPhoneSystemCleaner.Views
         private void BtnSelectAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (var chk in _checkBoxes.Where(c => c.IsEnabled))
+            {
                 chk.IsChecked = true;
+                if (chk.Tag is ScanCategory cat) cat.IsSelected = true;
+            }
         }
 
         private void BtnSelectNone_Click(object sender, RoutedEventArgs e)
         {
             foreach (var chk in _checkBoxes)
+            {
                 chk.IsChecked = false;
+                if (chk.Tag is ScanCategory cat) cat.IsSelected = false;
+            }
         }
 
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)

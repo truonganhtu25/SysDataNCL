@@ -26,8 +26,14 @@
                            Foreground="{StaticResource TextSecondaryBrush}"
                            FontSize="13" Margin="0,5,0,0"/>
             </StackPanel>
-            <!-- Select all / none -->
+            <!-- Actions -->
             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Sắp xếp: " Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <ComboBox x:Name="CmbSort" Width="140" Height="36" Margin="0,0,16,0" SelectedIndex="0" SelectionChanged="CmbSort_SelectionChanged">
+                    <ComboBoxItem Content="Dung lượng"/>
+                    <ComboBoxItem Content="Mức độ rủi ro"/>
+                    <ComboBoxItem Content="Tên (A-Z)"/>
+                </ComboBox>
                 <Button Style="{StaticResource GhostButton}"
                         Content="☑ Chọn tất cả"
                         Height="36" Margin="0,0,8,0"
