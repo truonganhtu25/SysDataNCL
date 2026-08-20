@@ -83,29 +83,8 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- App title with logo -->
-                    <StackPanel Grid.Column="0" Orientation="Horizontal"
-                                VerticalAlignment="Center" Margin="16,0">
-                        <!-- Glow dot -->
-                        <Ellipse Width="8" Height="8" Margin="0,0,10,0">
-                            <Ellipse.Fill>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#7C3AED" Offset="0"/>
-                                    <GradientStop Color="#00D4FF" Offset="1"/>
-                                </RadialGradientBrush>
-                            </Ellipse.Fill>
-                            <Ellipse.Effect>
-                                <DropShadowEffect Color="#7C3AED" BlurRadius="8" ShadowDepth="0" Opacity="1"/>
-                            </Ellipse.Effect>
-                        </Ellipse>
-                        <TextBlock Text="iPhone System Data Cleaner"
-                                   Foreground="{StaticResource TextPrimaryBrush}"
-                                   FontSize="13" FontWeight="SemiBold"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock x:Name="TbVersion" Text="  v1.0"
-                                   Foreground="{StaticResource TextSecondaryBrush}"
-                                   FontSize="11" VerticalAlignment="Center"/>
-                    </StackPanel>
+                    <!-- App title removed per user request -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0"/>
 
                     <!-- Window controls -->
                     <StackPanel Grid.Column="1" Orientation="Horizontal"
@@ -231,7 +210,7 @@
                                FontSize="11"
                                VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="1"
-                               Text="iPhone System Data Cleaner • Hỗ trợ: Rootless Jailbreak"
+                               Text="iPhone System Data Cleaner • Hỗ trợ: Rootful, Rootless &amp; Roothide"
                                Foreground="{StaticResource TextSecondaryBrush}"
                                FontSize="11"
                                VerticalAlignment="Center"/>

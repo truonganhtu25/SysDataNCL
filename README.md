@@ -11,7 +11,7 @@ Một công cụ chuyên nghiệp để dọn dẹp dữ liệu rác, bộ nhớ
 
 ## Yêu Cầu Hệ Thống
 1. **Máy tính Windows**: (Win 10/11) chạy phần mềm `SysDataNCL.exe`.
-2. **iPhone**: Đã Jailbreak (hỗ trợ cả Rootful và Rootless).
+2. **iPhone**: Đã Jailbreak (hỗ trợ Rootful, Rootless và cả Roothide).
 3. **OpenSSH**: Điện thoại phải cài đặt sẵn tweak OpenSSH (thường có sẵn khi Jailbreak).
 
 ## Hướng Dẫn Sử Dụng
